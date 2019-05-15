@@ -2,8 +2,10 @@
 #include "Keyboard.hpp"
 void pause();
 void test1();
+void test2();
 int main(void){
     test1();
+    test2();
     return 0;
 }
 void pause()
@@ -21,3 +23,12 @@ void test1()
     pause();
     
 }
+void test2()
+{
+    std::cout<<"Start test2: Getting commands from keyboard."<<std::endl;
+    TKeyboard Keyboard;
+    Keyboard.get_command();
+    std::cout<<"End of the test2."<<std::endl;
+    pause();
+}
+
