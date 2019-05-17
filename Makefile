@@ -7,7 +7,7 @@ BUILD = build
 BIN = bin
 
 $(BIN)/TEST: $(BUILD)/Tests.o $(BUILD)/Keyboard.o $(BUILD)/Window.o $(BUILD)/Functions.o
-	$(CC) $(CFLAGS)  $(BUILD)/Tests.o $(BUILD)/Keyboard.o -o $(BIN)/TEST
+	$(CC) $(CFLAGS)  $(BUILD)/Tests.o $(BUILD)/Keyboard.o $(BUILD)/Window.o $(BUILD)/Functions.o -o $(BIN)/TEST
 
 $(BUILD)/Tests.o: $(SRC)/Tests.cpp $(INCLUDE)/Main.hpp $(INCLUDE)/Keyboard.hpp $(INCLUDE)/Window.hpp $(INCLUDE)/Functions.hpp
 	$(CC) $(CFLAGS)  -c $(SRC)/Tests.cpp -o $(BUILD)/Tests.o

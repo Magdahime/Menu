@@ -11,7 +11,7 @@ private:
       "assign function",
       "expand submenu", "fold submenu",
       "choose",
-      "add file", "open file","save to file"
+      "add file", "open file","save to file",
       "exit", "back",
     };
 public:

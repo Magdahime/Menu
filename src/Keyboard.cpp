@@ -91,15 +91,16 @@ void TKeyboard::choose(int choice)
             std::cout<<commands_list[choice]<<std::endl;
         break;
     }
-            case(13):{
-        exit(0);
-        break;
-    }
-            case(14):{
+        case(13):{
             std::cout<<commands_list[choice]<<std::endl;
         break;
     }
-            case(15):{
+           
+        case(14):{
+        exit(0);
+        break;
+    }
+        case(15):{
             std::cout<<commands_list[choice]<<std::endl;
         break;
     }

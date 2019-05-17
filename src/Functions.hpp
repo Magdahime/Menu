@@ -3,12 +3,14 @@
 #include "Main.hpp"
 class Tfunction{
 private:
-    static int how_many;
+    int my_number;
     std::string name;
-    void increase_number();
+    static int how_many;
+    static void increase_number();
 public:
     Tfunction();
     std::string tell_me_name();
     void do_something();
+    int give_me_number();
 };
 #endif

@@ -2,14 +2,14 @@
 #include "Keyboard.hpp"
 #include "Window.hpp"
 #include "Functions.hpp"
-
+int Tfunction::how_many=0;
 void pause();
 void test1();
 void test2();
 void test3();
 void test4();
 int main(void){
-    test1();
+    //test1();
     test2();
     test3();
     return 0;
