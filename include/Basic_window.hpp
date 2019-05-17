@@ -6,6 +6,5 @@ protected:
     std::string name;
 public:
     virtual void draw_yourself()=0;
-    virtual void do_something()=0;
 };
 #endif

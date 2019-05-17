@@ -15,6 +15,9 @@ public:
     TWindow(Tfunction * func_pointer):submenu(nullptr),function(func_pointer){}
     void draw_yourself();
     void do_something();
+    void operator=(Tfunction function1);
+    void operator=(Tmenu submenu1);
+    bool is_empty();
 };
 
 #endif

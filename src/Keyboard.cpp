@@ -1,5 +1,6 @@
 #include "Main.hpp"
 #include "Keyboard.hpp"
+#include "Exceptions.hpp"
 void TKeyboard::show_me_the_list()
 {
     std::cout.width(MAXLINE);
@@ -116,12 +117,8 @@ int TKeyboard::get_int()
             throw ERROR;
     }
     catch(int ERROR){
-        std::cout<<"Woah, bad data. Please try once again.(enter a digit)";
-        std::cin.clear();
-        std::cin.ignore(MAXLINE,'\n');
-        std::cin>>liczba1;
-    }
-    return liczba1;
+    return TExceptions::bad_int_data();
 }
-
+return liczba1;
+}
 

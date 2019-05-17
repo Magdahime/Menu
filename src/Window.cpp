@@ -39,4 +39,24 @@ void TWindow::draw_yourself()
         std::cout<<""<<std::endl;
     }
 }
-
+void TWindow::operator=(Tmenu submenu1)
+{
+    if(is_empty()){
+    submenu=&submenu1;
+    }else 
+        std::cout<<"Impossible to assign a submenu! This slot is already taken."<<std::endl;
+}
+void TWindow::operator=(Tfunction function1)
+{
+    if(is_empty()){
+    function=&function1;
+    }else{
+        std::cout<<"Impossible to assign a function! This slot is already taken."<<std::endl;
+    }
+}
+bool TWindow::is_empty()
+{
+    if(submenu==nullptr && function==nullptr)
+        return true;
+    return false;
+}
