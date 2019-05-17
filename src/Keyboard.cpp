@@ -95,6 +95,14 @@ void TKeyboard::choose(int choice)
         exit(0);
         break;
     }
+            case(14):{
+            std::cout<<commands_list[choice]<<std::endl;
+        break;
+    }
+            case(15):{
+            std::cout<<commands_list[choice]<<std::endl;
+        break;
+    }
 }
     
 }

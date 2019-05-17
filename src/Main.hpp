@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <vector>
 #include <array>
-constexpr int COMMANDS={14};
+constexpr int COMMANDS={16};
 constexpr int MAXLINE={80};
 constexpr int WIDTH={5};
 constexpr int ERROR={-1};

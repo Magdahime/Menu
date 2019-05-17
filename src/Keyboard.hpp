@@ -11,7 +11,8 @@ private:
       "assign function",
       "expand submenu", "fold submenu",
       "choose",
-      "add file", "open file","exit",
+      "add file", "open file","save to file"
+      "exit", "back",
     };
 public:
     int check(std::string command);
