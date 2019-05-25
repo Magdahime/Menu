@@ -13,7 +13,17 @@ void TWindow::draw_yourself()
         std::string free_space(MAXLINE-2,' ');
         std::string frame='*'+free_space+'*';
     if(submenu!=nullptr){
-        submenu->draw_yourself();
+        int size=submenu->tell_me_name().size();
+        std::string free_space2((MAXLINE-2-size)/2,' ');
+        std::cout.width(MAXLINE);
+        std::cout.fill('*');
+        std::cout<<""<<std::endl;
+        std::cout<<frame<<std::endl;
+        std::cout<<"*"<<free_space2<<submenu->tell_me_name()<<free_space2<<"*"<<std::endl;
+        std::cout<<frame<<std::endl;
+        std::cout.width(MAXLINE);
+        std::cout.fill('*');
+        std::cout<<""<<std::endl;
     }else if (function!= nullptr){
         int size=function->tell_me_name().size();
         std::string free_space1((MAXLINE-2-size)/2,' ');
@@ -39,17 +49,17 @@ void TWindow::draw_yourself()
         std::cout<<""<<std::endl;
     }
 }
-void TWindow::operator=(Tmenu submenu1)
+void TWindow::operator=(Tmenu** submenu1)
 {
     if(is_empty()){
-    submenu=&submenu1;
+    submenu=*submenu1;
     }else 
         std::cout<<"Impossible to assign a submenu! This slot is already taken."<<std::endl;
 }
-void TWindow::operator=(Tfunction function1)
+void TWindow::operator=(Tfunction** function1)
 {
     if(is_empty()){
-    function=&function1;
+    function=*function1;
     }else{
         std::cout<<"Impossible to assign a function! This slot is already taken."<<std::endl;
     }

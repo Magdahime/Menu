@@ -20,7 +20,8 @@ int main(void){
     //test3();
     //test4();
     //test5();
-    test6();
+    //test6();
+    test7();
     return 0;
 }
 void pause()
@@ -74,8 +75,8 @@ void test4()
     TWindow window1;
     TWindow window2;
     std::cout<<"Double assigning to one window (functions) - expecting result: not possible"<<std::endl;
-    window1=fun1;
-    window1=fun2;
+    window1=&fun1;
+    window1=&fun2;
     std::cout<<"This window now shold not be empty."<<std::endl;
     std::cout<<window1.is_empty()<<std::endl;
     std::cout<<"Checking what is inside this window"<<std::endl;
@@ -84,21 +85,21 @@ void test4()
     TWindow window3;
     Tmenu menu1;
     Tmenu menu2;
-    window3=menu1;
-    window3=menu2;
+    window3=&menu1;
+    window3=&menu2;
     std::cout<<"This window now shold not be empty."<<std::endl;
     std::cout<<window3.is_empty()<<std::endl;
     std::cout<<"This window is empty."<<std::endl;
     std::cout<<window2.is_empty()<<std::endl;
      std::cout<<"Double assigning to one window (menu+function)- expecting result: not possible"<<std::endl;
-    window2=fun2;
-    window2=menu2;
+    window2=&fun2;
+    window2=&menu2;
     std::cout<<"End of the test4."<<std::endl;
     pause();
 }
 void test5()
 {
-    std::cout<<"Start test4: New methods to class TMenu."<<std::endl;
+    std::cout<<"Start test5: New methods to class TMenu."<<std::endl;
     Tmenu menu1;
     std::cout<<"Adding 3 empty slots"<<std::endl;
     menu1.add_empty_slot();
@@ -114,13 +115,15 @@ void test5()
     menu1.create_new_function();
     std::cout<<"Functions of my menu1"<<std::endl;
     menu1.print_array();
-    std::cout<<"End of the test4."<<std::endl;
+    std::cout<<"End of the test5."<<std::endl;
     pause();
 }
 void test6()
 {
-    std::cout<<"Start test5: Getting data and exceptions."<<std::endl; 
+    std::cout<<"Start test6: Getting data and exceptions."<<std::endl; 
     Tmenu menu1;
+    menu1.add_empty_slot();
+    menu1.add_empty_slot();
     menu1.add_empty_slot();
     menu1.add_empty_slot();
     menu1.add_empty_slot();
@@ -129,10 +132,45 @@ void test6()
     std::cout<<"Assigning function to empty slots"<<std::endl;
     menu1.draw_yourself();
     menu1.assign_function_to_empty_slot();
-    menu1.print_array();
+    menu1.draw_yourself();
     menu1.assign_function_to_empty_slot();
     menu1.draw_yourself();
-    std::cout<<"End of the test5."<<std::endl;
+    std::cout<<"End of the test6."<<std::endl;
+    pause();
+}
+void test7()
+{
+     std::cout<<"Start test7: Assigning and creating submenu."<<std::endl;
+     Tmenu menu1;
+     menu1.add_empty_slot();
+     menu1.add_empty_slot();
+     menu1.add_empty_slot();
+     menu1.add_empty_slot();
+     menu1.add_empty_slot();
+     std::cout<<"That's how it looks like without any functions or submenu"<<std::endl;
+     menu1.draw_yourself();
+     menu1.assign_menu_to_empty_slot();     
+     std::cout<<"That's how it looks after assigning first submenu"<<std::endl;
+     menu1.draw_yourself();
+     menu1.assign_menu_to_empty_slot();
+     std::cout<<"That's how it looks after assigning second submenu"<<std::endl;
+     menu1.draw_yourself();
+     std::cout<<"End of the test7."<<std::endl;
+     pause();
+}
+void test8()
+{
+    std::cout<<"Start test8: Folding and expanding submenu"<<std::endl;
+    Tmenu menu1;
+    menu1.add_empty_slot();
+    menu1.add_empty_slot();
+    menu1.add_empty_slot();
+    std::cout<<"Our menu looks like this:"<<std::endl;
+    menu1.draw_yourself();
+    menu1.assign_menu_to_empty_slot();
+    std::cout<<"We've assigned an submenu, now we will try to expand it."<<std::endl;
+    menu1.expand_submenu();
+    std::cout<<"End of the test8."<<std::endl;
     pause();
 }
 

@@ -10,7 +10,7 @@ void Tmenu::add_empty_slot()
 }
 void Tmenu::assign_function_to_empty_slot()
 {
- Mywindows[choose_slot()]=Functions[choose_function()];   
+ Mywindows[choose_slot()]=&Functions[choose_function()];   
 }
 void Tmenu::print_array()
 {
@@ -20,14 +20,35 @@ void Tmenu::print_array()
     }else
     {
     for(long unsigned int i=0;i<Functions.size();i++){
-                std::cout<<i+1<<"."<<Functions[i].tell_me_name()<<Functions[i].give_me_number()<<std::endl;
+                std::cout<<i+1<<"."<<Functions[i]->tell_me_name()<<Functions[i]->give_me_number()<<std::endl;
     }
 }
 }
+int Tmenu::choose_function()
+{
+    long unsigned int number;
+    try{
+    std::cout<<"Do you want to create new function?"<<std::endl;
+    if(get_ans()){
+        return create_new_function();
+    }else{
+        std::cout<<"Please, choose one:"<<std::endl;
+        print_array();
+        number = get_int();
+        if(number>Functions.size()) throw ERROR;
+    }
+    }
+    catch(int){
+        number=TExceptions::bad_int_data(Functions.size());
+    }
+    return number-1;
+}
+
 void Tmenu::assign_menu_to_empty_slot()
 {
-    Tmenu empty_menu;
-    Mywindows[choose_slot()]=empty_menu;
+    Tmenu *empty_menu=new(Tmenu);
+    empty_menu->name=get_name();
+    Mywindows[choose_slot()]=&empty_menu;
 }
 void Tmenu::draw_yourself()
 {
@@ -42,6 +63,16 @@ std::cout<<"HINT:Assign something to this menu."<<std::endl;
 }
 void Tmenu::expand_submenu()
 {
+    long unsigned int number;
+    try{
+    std::cout<<"Choose which submenu you want to expand:"<<std::endl;
+    number=get_int();
+    if(number>Mywindows.size()) throw ERROR;
+    }
+    catch(int){
+        number = TExceptions::bad_int_data(Mywindows.size());
+    }
+    Mywindows[number-1].draw_yourself();
 }
 void Tmenu::fold_submenu()
 {
@@ -71,50 +102,12 @@ else {
     return get_ans();
 }
 }
-int Tmenu::choose_function()
-{
-    std::cout<<"Do you want to create new function?"<<std::endl;
-    if(get_ans()){
-        if(Functions.size()==COMMANDS-1){
-            std::cout<<"Unable to add new functions. Please choose one of the below:"<<std::endl;
-           print_array();
-           try{
-               long unsigned int result = get_int();
-               if(result>Functions.size()){
-                   throw ERROR;
-               }else 
-                   return result-1;
-        }
-            catch(int ERROR){
-            return TExceptions::bad_int_data();
-                            }
-        }else{
-        return create_new_function();
-        }
-    }else if(Functions.size()==0){
-        
-    }
-    else{
-        std::cout<<"Please choose one of the below:"<<std::endl;
-        print_array();
-        try{
-    long unsigned int result=get_int();
-    if(result>Functions.size()){
-        throw ERROR;
-    }else
-        return result-1;
-        }
-    catch(int ERROR){
-    return TExceptions::bad_int_data();
-    }
-}
-return ERROR;
-}
 int Tmenu::get_int()
 {
       unsigned int liczba1;
     try{    
         std::cin>>liczba1;
+    std::cin.ignore(std::numeric_limits<int>::max(),'\n');
         if(!std::cin)
             throw ERROR;
     }
@@ -134,12 +127,28 @@ int Tmenu::choose_slot()
         return result-1;
 }
     catch(int){
-        return TExceptions::bad_int_data();
+        return TExceptions::bad_int_data(Mywindows.size())-1;
     }
 }
 int Tmenu::create_new_function()
 {
-    Tfunction new_function;
+    Tfunction *new_function=new(Tfunction);
     Functions.push_back(new_function);
-    return new_function.give_me_number();
+    return new_function->give_me_number()-1;
+}
+std::string Tmenu::get_name()
+{
+    char name[MAXLINE-2];
+    try{
+    std::cout<<"How would you like to name your submenu?"<<std::endl;
+       std::cin.get(name,MAXLINE-2);
+       std::cin.clear();
+       std::cin.ignore(std::numeric_limits<int>::max(), '\n' );
+    if(!std::cin || !TExceptions::checking_string(name))
+        throw ERROR;
+    }
+    catch(int){
+    return TExceptions::bad_string();
+    }
+    return name;
 }
