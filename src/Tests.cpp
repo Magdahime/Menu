@@ -17,8 +17,10 @@ void test8();
 int main(void){
     //test1();
     //test2();
-    test3();
-    test4();
+    //test3();
+    //test4();
+    //test5();
+    test6();
     return 0;
 }
 void pause()
@@ -96,9 +98,41 @@ void test4()
 }
 void test5()
 {
-    std::cout<<"Start test4: New methods to class TWindow."<<std::endl;
+    std::cout<<"Start test4: New methods to class TMenu."<<std::endl;
+    Tmenu menu1;
+    std::cout<<"Adding 3 empty slots"<<std::endl;
+    menu1.add_empty_slot();
+    menu1.add_empty_slot();
+    menu1.add_empty_slot();
+    std::cout<<"How this menu looks."<<std::endl;
+    menu1.draw_yourself();
+    std::cout<<"An empty menu-how it looks"<<std::endl;
+    Tmenu menu2;
+    menu2.draw_yourself();
+    std::cout<<"Creating new functions"<<std::endl;
+    menu1.create_new_function();
+    menu1.create_new_function();
+    std::cout<<"Functions of my menu1"<<std::endl;
+    menu1.print_array();
     std::cout<<"End of the test4."<<std::endl;
     pause();
 }
-
+void test6()
+{
+    std::cout<<"Start test5: Getting data and exceptions."<<std::endl; 
+    Tmenu menu1;
+    menu1.add_empty_slot();
+    menu1.add_empty_slot();
+    menu1.add_empty_slot();
+    std::cout<<"Trying to show an empty array Function"<<std::endl;
+    menu1.print_array();
+    std::cout<<"Assigning function to empty slots"<<std::endl;
+    menu1.draw_yourself();
+    menu1.assign_function_to_empty_slot();
+    menu1.print_array();
+    menu1.assign_function_to_empty_slot();
+    menu1.draw_yourself();
+    std::cout<<"End of the test5."<<std::endl;
+    pause();
+}
 

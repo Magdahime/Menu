@@ -14,8 +14,14 @@ void Tmenu::assign_function_to_empty_slot()
 }
 void Tmenu::print_array()
 {
+    if(Functions.size()==0){
+        std::cout<<"There is no functions to show!"<<std::endl;
+        std::cout<<"HINT:Add some functions first."<<std::endl;
+    }else
+    {
     for(long unsigned int i=0;i<Functions.size();i++){
-                std::cout<<i+1<<"."<<Functions[i].tell_me_name()<<std::endl;
+                std::cout<<i+1<<"."<<Functions[i].tell_me_name()<<Functions[i].give_me_number()<<std::endl;
+    }
 }
 }
 void Tmenu::assign_menu_to_empty_slot()
@@ -28,9 +34,11 @@ void Tmenu::draw_yourself()
     if(Mywindows.size()>0){
 for(long unsigned int i =0; i<Mywindows.size(); i++){
     Mywindows[i].draw_yourself();
-}}else
+}
+    }else{
 std::cout<<"This menu is empty."<<std::endl;
 std::cout<<"HINT:Assign something to this menu."<<std::endl;
+}
 }
 void Tmenu::expand_submenu()
 {
@@ -81,10 +89,12 @@ int Tmenu::choose_function()
             return TExceptions::bad_int_data();
                             }
         }else{
-        Tfunction new_function;
-        Functions[Functions.size()]=new_function;
+        return create_new_function();
         }
-    }else{
+    }else if(Functions.size()==0){
+        
+    }
+    else{
         std::cout<<"Please choose one of the below:"<<std::endl;
         print_array();
         try{
@@ -105,7 +115,7 @@ int Tmenu::get_int()
       unsigned int liczba1;
     try{    
         std::cin>>liczba1;
-        if(!isdigit(liczba1))
+        if(!std::cin)
             throw ERROR;
     }
     catch(int ERROR){
@@ -126,4 +136,10 @@ int Tmenu::choose_slot()
     catch(int){
         return TExceptions::bad_int_data();
     }
+}
+int Tmenu::create_new_function()
+{
+    Tfunction new_function;
+    Functions.push_back(new_function);
+    return new_function.give_me_number();
 }

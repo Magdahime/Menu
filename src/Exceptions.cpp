@@ -9,7 +9,7 @@ int TExceptions::bad_int_data()
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<int>::max(),'\n');
     std::cin>>number1;
-    }while(!isdigit(number1));
+    }while(!std::cin);
     return number1;
 }
 void TExceptions::increase_number()

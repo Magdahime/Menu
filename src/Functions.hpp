@@ -12,5 +12,6 @@ public:
     std::string tell_me_name();
     void do_something();
     int give_me_number();
+    static int give_me_static();
 };
 #endif

@@ -22,3 +22,7 @@ int Tfunction::give_me_number()
 {
     return my_number;
 }
+int Tfunction::give_me_static()
+{
+    return how_many;
+}
