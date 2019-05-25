@@ -14,6 +14,7 @@ void test5();
 void test6();
 void test7();
 void test8();
+void test9();
 int main(void){
     //test1();
     //test2();
@@ -21,7 +22,9 @@ int main(void){
     //test4();
     //test5();
     //test6();
-    test7();
+    //test7();
+    //test8();
+    test9();
     return 0;
 }
 void pause()
@@ -160,17 +163,53 @@ void test7()
 }
 void test8()
 {
-    std::cout<<"Start test8: Folding and expanding submenu"<<std::endl;
-    Tmenu menu1;
-    menu1.add_empty_slot();
-    menu1.add_empty_slot();
-    menu1.add_empty_slot();
-    std::cout<<"Our menu looks like this:"<<std::endl;
-    menu1.draw_yourself();
-    menu1.assign_menu_to_empty_slot();
-    std::cout<<"We've assigned an submenu, now we will try to expand it."<<std::endl;
-    menu1.expand_submenu();
-    std::cout<<"End of the test8."<<std::endl;
-    pause();
+   std::cout<<"Start test8: Removing slots."<<std::endl; 
+   Tmenu menu1;
+   menu1.add_empty_slot();
+   menu1.add_empty_slot();
+   menu1.add_empty_slot();
+   menu1.add_empty_slot();
+   menu1.add_empty_slot();
+   menu1.add_empty_slot();
+   menu1.add_empty_slot();
+   std::cout<<"This is how looks this menu before removing:"<<std::endl;
+   std::cout<<"We will now assign some data to it."<<std::endl;
+   menu1.draw_yourself();
+   menu1.assign_function_to_empty_slot();
+   menu1.draw_yourself();
+   menu1.assign_menu_to_empty_slot();
+   menu1.draw_yourself();
+   menu1.assign_function_to_empty_slot();
+   menu1.draw_yourself();
+   std::cout<<"Time for removal!(3 times)"<<std::endl;
+   menu1.draw_yourself();
+   menu1.remove_slot();
+   menu1.draw_yourself();
+   menu1.remove_slot();
+   menu1.draw_yourself();
+   menu1.remove_slot();
+   menu1.draw_yourself();
+   std::cout<<"End of the test8."<<std::endl;
+   pause();
 }
+void test9()
+{
+     std::cout<<"Start test9: Making choices in our menu."<<std::endl; 
+   Tmenu menu1;
+   menu1.add_empty_slot();
+   menu1.add_empty_slot();
+   menu1.add_empty_slot();
+   std::cout<<"This is how it looks before assigning. We will now try to assign a submenu and a function."<<std::endl;
+   menu1.draw_yourself();
+   menu1.assign_function_to_empty_slot();
+   menu1.assign_menu_to_empty_slot();
+   menu1.draw_yourself();
+   std::cout<<"Now, we are making three choices to check how our program will behave."<<std::endl;
+   menu1.make_choice();
+   menu1.make_choice();
+   menu1.make_choice();
+   std::cout<<"End of the test9."<<std::endl;
+   pause();
+}
+
 

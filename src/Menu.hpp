@@ -15,15 +15,16 @@ private:
      /////////////////////////////////////////////////////
      int choose_function();
      int choose_slot();
-     int get_int();
+     int get_int(unsigned int limit);
 public:
     std::string tell_me_name();
+    void make_choice();
+    void remove_data();
     void print_array();
     int create_new_function();
     void draw_yourself();
     void add_empty_slot();
-    void remove_empty_slot();
-    void remove_submenu();
+    void remove_slot();
     void fold_submenu();
     void expand_submenu();
     void assign_function_to_empty_slot();

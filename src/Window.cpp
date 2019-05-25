@@ -6,6 +6,10 @@ void TWindow::do_something()
 {
     if(function!=nullptr)
         function->do_something();
+    else if (submenu!=nullptr)
+        std::cout<<"I'm just a submenu I can't do anything :("<<std::endl;
+    else
+        std::cout<<"I'm just an empty window. I can't do anything :("<<std::endl;
 }
 void TWindow::draw_yourself()
 {
@@ -67,6 +71,24 @@ void TWindow::operator=(Tfunction** function1)
 bool TWindow::is_empty()
 {
     if(submenu==nullptr && function==nullptr)
+        return true;
+    return false;
+}
+void TWindow::remove_data()
+{
+    if(!is_submenu()){
+        delete (function);
+        function =nullptr;
+    }
+    else{
+        submenu->remove_data();
+        submenu = nullptr;
+    }
+    
+}
+bool TWindow::is_submenu()
+{
+    if(submenu!=nullptr)
         return true;
     return false;
 }

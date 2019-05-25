@@ -34,8 +34,7 @@ int Tmenu::choose_function()
     }else{
         std::cout<<"Please, choose one:"<<std::endl;
         print_array();
-        number = get_int();
-        if(number>Functions.size()) throw ERROR;
+        number = get_int(Functions.size());
     }
     }
     catch(int){
@@ -63,26 +62,40 @@ std::cout<<"HINT:Assign something to this menu."<<std::endl;
 }
 void Tmenu::expand_submenu()
 {
-    long unsigned int number;
-    try{
-    std::cout<<"Choose which submenu you want to expand:"<<std::endl;
-    number=get_int();
-    if(number>Mywindows.size()) throw ERROR;
-    }
-    catch(int){
-        number = TExceptions::bad_int_data(Mywindows.size());
-    }
-    Mywindows[number-1].draw_yourself();
 }
 void Tmenu::fold_submenu()
 {
 }
-void Tmenu::remove_empty_slot()
+void Tmenu::remove_slot()
 {
+    long unsigned int which_one;
+    try{
+    std::cout<<"Choose which one of the windows you want to delete:"<<std::endl;
+    which_one=get_int(Mywindows.size());
+    }
+    catch(int){
+        which_one= TExceptions::bad_int_data(Mywindows.size());
+    }
+    if(!Mywindows[which_one].is_empty()){
+        std::cout<<"This window contains data! Are you sure you want to delete it?"<<std::endl;
+        if(get_ans()){
+            Mywindows[which_one].remove_data();
+            Mywindows.erase(Mywindows.begin()+which_one-1);///Musimy odjąć jedynkę ponieważ Mywindows.begin wskazuje na pierwszy element, gdybyśmy nie odejmowali tej jedynki to usuwalibyśmy element za tym odpowiednim
+        }
+    }else{
+      Mywindows.erase(Mywindows.begin()+which_one-1);  
+    }
 }
-void Tmenu::remove_submenu()
+void Tmenu::remove_data()
 {
+    for(unsigned int i=0; i<Functions.size();i++){
+        delete (Functions[i]);
+    }
+    for(unsigned int i=0;i<Mywindows.size();i++){
+        Mywindows[i].remove_data();
+    }
 }
+
 std::string Tmenu::tell_me_name()
 {
     return name;
@@ -102,17 +115,17 @@ else {
     return get_ans();
 }
 }
-int Tmenu::get_int()
+int Tmenu::get_int( unsigned int limit)
 {
       unsigned int liczba1;
     try{    
         std::cin>>liczba1;
     std::cin.ignore(std::numeric_limits<int>::max(),'\n');
-        if(!std::cin)
+        if(!std::cin || liczba1>limit)
             throw ERROR;
     }
     catch(int ERROR){
-        return TExceptions::bad_int_data();
+        return TExceptions::bad_int_data(limit);
     }
     return liczba1;
 }
@@ -120,10 +133,7 @@ int Tmenu::choose_slot()
 {
     std::cout<<"Please choose an empty slot."<<std::endl;
     try{
-    long unsigned int result = get_int();
-    if(result>Mywindows.size()){
-        throw ERROR;
-    }else
+    long unsigned int result = get_int(Mywindows.size());
         return result-1;
 }
     catch(int){
@@ -151,4 +161,16 @@ std::string Tmenu::get_name()
     return TExceptions::bad_string();
     }
     return name;
+}
+void Tmenu::make_choice()
+{
+    int which_one;
+    try{
+    std::cout<<"Which window you want to choose?"<<std::endl;
+    which_one=get_int(Mywindows.size());
+    }
+    catch(int){
+        which_one=TExceptions::bad_int_data();
+    }
+    Mywindows[which_one-1].do_something();//Musimy odjąć jedynkę bo indeksowanie zaczyna się od zera
 }

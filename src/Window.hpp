@@ -13,11 +13,13 @@ public:
     TWindow():submenu(nullptr),function(nullptr){}
     TWindow(Tmenu* menu_pointer):submenu(menu_pointer),function(nullptr){}
     TWindow(Tfunction * func_pointer):submenu(nullptr),function(func_pointer){}
+    void remove_data();
     void draw_yourself();
     void do_something();
     void operator=(Tfunction** function1);
     void operator=(Tmenu** submenu1);
     bool is_empty();
+    bool is_submenu();
 };
 
 #endif
