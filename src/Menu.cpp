@@ -3,6 +3,9 @@
 #include "Window.hpp"
 #include "Functions.hpp"
 #include "Exceptions.hpp"
+#include "Screen.hpp"
+TKeyboard* Tmenu::My_keyboard=nullptr;
+
 void Tmenu::add_empty_slot()
 {
     TWindow empty_slot;
@@ -47,6 +50,8 @@ void Tmenu::assign_menu_to_empty_slot()
 {
     Tmenu *empty_menu=new(Tmenu);
     empty_menu->name=get_name();
+    empty_menu->My_ancestor= this;
+    empty_menu->give_me_my_keyboard(My_keyboard);
     Mywindows[choose_slot()]=&empty_menu;
 }
 void Tmenu::draw_yourself()
@@ -62,9 +67,30 @@ std::cout<<"HINT:Assign something to this menu."<<std::endl;
 }
 void Tmenu::expand_submenu()
 {
+    int which_one;
+    try{
+    std::cout<<"Choose submenu you want to expand:"<<std::endl;
+    which_one=get_int(Mywindows.size());
+    }
+    catch(int){
+        which_one=TExceptions::bad_int_data(Mywindows.size());
+    }
+    if(!Mywindows[which_one-1].is_submenu()){
+        std::cout<<"This is not a submenu, you canot expand it!"<<std::endl;
+    }else{
+        My_successor=Mywindows[which_one-1].give_me_submenu_pointer();
+        My_keyboard->change_keyboard(My_successor);
+        My_successor->draw_yourself();
+    }
+    
 }
 void Tmenu::fold_submenu()
 {
+    if(My_ancestor!=nullptr){
+        My_keyboard->change_keyboard(My_ancestor);
+    }else{
+        std::cout<<"Cannot fold a submenu! This is your first menu."<<std::endl;
+    }
 }
 void Tmenu::remove_slot()
 {
@@ -121,7 +147,7 @@ int Tmenu::get_int( unsigned int limit)
     try{    
         std::cin>>liczba1;
     std::cin.ignore(std::numeric_limits<int>::max(),'\n');
-        if(!std::cin || liczba1>limit)
+        if(!std::cin || liczba1>limit || liczba1<=0)
             throw ERROR;
     }
     catch(int ERROR){
@@ -142,7 +168,7 @@ int Tmenu::choose_slot()
 }
 int Tmenu::create_new_function()
 {
-    Tfunction *new_function=new(Tfunction);
+    TFunction *new_function=new(TFunction);
     Functions.push_back(new_function);
     return new_function->give_me_number()-1;
 }
@@ -173,4 +199,8 @@ void Tmenu::make_choice()
         which_one=TExceptions::bad_int_data();
     }
     Mywindows[which_one-1].do_something();//Musimy odjąć jedynkę bo indeksowanie zaczyna się od zera
+}
+void Tmenu::give_me_my_keyboard(TKeyboard* new_keyboard)
+{
+    My_keyboard=new_keyboard;
 }

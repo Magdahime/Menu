@@ -23,7 +23,10 @@ void TWindow::draw_yourself()
         std::cout.fill('*');
         std::cout<<""<<std::endl;
         std::cout<<frame<<std::endl;
-        std::cout<<"*"<<free_space2<<submenu->tell_me_name()<<free_space2<<"*"<<std::endl;
+        if(size%2)
+            std::cout<<"* "<<free_space2<<submenu->tell_me_name()<<free_space2<<"*"<<std::endl;
+        else
+        std::cout<<"*"<<free_space2<<submenu->tell_me_name()<<free_space2<<"*"<<std::endl; 
         std::cout<<frame<<std::endl;
         std::cout.width(MAXLINE);
         std::cout.fill('*');
@@ -60,7 +63,7 @@ void TWindow::operator=(Tmenu** submenu1)
     }else 
         std::cout<<"Impossible to assign a submenu! This slot is already taken."<<std::endl;
 }
-void TWindow::operator=(Tfunction** function1)
+void TWindow::operator=(TFunction** function1)
 {
     if(is_empty()){
     function=*function1;
@@ -91,4 +94,8 @@ bool TWindow::is_submenu()
     if(submenu!=nullptr)
         return true;
     return false;
+}
+Tmenu* TWindow::give_me_submenu_pointer()
+{
+    return submenu;
 }

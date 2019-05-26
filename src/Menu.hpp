@@ -6,12 +6,16 @@
 #include "Basic_window.hpp"
 #include <deque>
 class TWindow;
+class TKeyboard;
 class Tmenu : public Basic_window{
 private:
      std::string name;
-    std::string get_name();
+     std::string get_name();
+     Tmenu* My_ancestor;
+     Tmenu* My_successor;
+     static TKeyboard* My_keyboard;
      std::vector<TWindow> Mywindows;
-     std::deque<Tfunction*> Functions;
+     std::deque<TFunction*> Functions;
      /////////////////////////////////////////////////////
      int choose_function();
      int choose_slot();
@@ -30,6 +34,7 @@ public:
     void assign_function_to_empty_slot();
     void assign_menu_to_empty_slot();
     bool get_ans();
+    void give_me_my_keyboard(TKeyboard* new_keyboard);
 };
 
 #endif

@@ -7,21 +7,19 @@ void TKeyboard::show_me_the_list()
     std::cout<<stars<<std::endl;
     std::cout<<"Full list of commands: "<<std::endl;
     for(std::array<std::string,COMMANDS>::iterator i=commands_list.begin(); i!=commands_list.end();i++){
-        std::cout<<"-"<<*i<<std::endl;
+        std::cout<<*i<<"   ";
     }
-    std::cout<<stars<<std::endl;
-    std::cout<<std::endl<<std::endl<<std::endl;
-    std::cout<<stars<<std::endl;
-    std::cout<<"How to make a full command?"<<std::endl;
-    std::cout<<"<one of the list above>"<<std::endl;
-    std::cout<<stars<<std::endl;
-    std::cout<<std::endl<<std::endl<<std::endl;
+    std::cout<<std::endl<<stars<<std::endl;
 }
 void TKeyboard::get_command()
 {
     while(true){
+        My_menu->draw_yourself();
         std::string command;
+        std::cout<<std::endl<<std::endl<<std::endl<<std::endl<<std::endl;
         std::cout<<"Waiting for your command..."<<std::endl;
+        std::cout<<"If you need assistance, please type help."<<std::endl;
+        show_me_the_list();
         getline(std::cin,command);
         int result =check(command);
         if(result!=ERROR)
@@ -45,11 +43,13 @@ void TKeyboard::choose(int choice)
         break;
     }
         case(1):{
-            std::cout<<commands_list[choice]<<std::endl;
+            My_menu->add_empty_slot();
+                    clrscrs();
         break;
     }
         case(2):{
-            std::cout<<commands_list[choice]<<std::endl;
+           My_menu->remove_slot();
+                   clrscrs();
         break;
     }
         case(3):{
@@ -57,35 +57,40 @@ void TKeyboard::choose(int choice)
         break;
     }
         case(4):{
-            std::cout<<commands_list[choice]<<std::endl;
+           std::cout<<commands_list[choice]<<std::endl;
         break;
     }
         case(5):{
-            std::cout<<commands_list[choice]<<std::endl;
+            My_menu->assign_menu_to_empty_slot();
+                    clrscrs();
         break;
     }
         case(6):{
-            std::cout<<commands_list[choice]<<std::endl;
+            My_menu->remove_slot();
+                    clrscrs();
         break;
     }
         case(7):{
-            std::cout<<commands_list[choice]<<std::endl;
+            My_menu->assign_function_to_empty_slot();
+                    clrscrs();
         break;
     }
         case(8):{
-            std::cout<<commands_list[choice]<<std::endl;
+            My_menu->expand_submenu();
+                    clrscrs();
         break;
     }
         case(9):{
-            std::cout<<commands_list[choice]<<std::endl;
+           My_menu->fold_submenu();
+                   clrscrs();
         break;
     }
         case(10):{
-            std::cout<<commands_list[choice]<<std::endl;
+            My_menu->make_choice();
         break;
     }
         case(11):{
-            std::cout<<commands_list[choice]<<std::endl;
+           std::cout<<commands_list[choice]<<std::endl;
         break;
     }
         case(12):{
@@ -121,4 +126,13 @@ int TKeyboard::get_int()
 }
 return liczba1;
 }
+void TKeyboard::change_keyboard(Tmenu* new_menu)
+{
+    std::cout<<this<<std::endl;
+    My_menu=new_menu;
+}
 
+void TKeyboard::clrscrs()
+{
+            system("@cls||clear");
+}

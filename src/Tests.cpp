@@ -3,7 +3,8 @@
 #include "Window.hpp"
 #include "Functions.hpp"
 #include "Exceptions.hpp"
-int Tfunction::how_many=0;
+#include "Screen.hpp"
+int TFunction::how_many=0;
 int TExceptions::how_many_times=0;
 void pause();
 void test1();
@@ -15,6 +16,7 @@ void test6();
 void test7();
 void test8();
 void test9();
+void test10();
 int main(void){
     //test1();
     //test2();
@@ -24,7 +26,8 @@ int main(void){
     //test6();
     //test7();
     //test8();
-    test9();
+    //test9();
+    test10();
     return 0;
 }
 void pause()
@@ -53,8 +56,8 @@ void test2()
 void test3()
 {
     std::cout<<"Start test3: Testing class TWindow and TFunction."<<std::endl;
-    Tfunction fun1;
-    Tfunction fun2;
+    TFunction fun1;
+    TFunction fun2;
     TWindow window1(&fun1);
     TWindow window2(&fun2);
     TWindow window3;
@@ -73,8 +76,8 @@ void test3()
 void test4()
 {
     std::cout<<"Start test4: New methods to class TWindow."<<std::endl;
-    Tfunction fun1;
-    Tfunction fun2;
+    TFunction fun1;
+    TFunction fun2;
     TWindow window1;
     TWindow window2;
     std::cout<<"Double assigning to one window (functions) - expecting result: not possible"<<std::endl;
@@ -212,4 +215,11 @@ void test9()
    pause();
 }
 
+void test10()
+{
+    std::cout<<"Start test10: Folding and expanding submenu."<<std::endl; 
+    TScreen screen;
+    std::cout<<"End of the test10."<<std::endl;
+    pause();
+}
 

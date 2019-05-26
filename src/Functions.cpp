@@ -1,28 +1,28 @@
 #include "Main.hpp"
 #include "Functions.hpp"
-void Tfunction::do_something()
+void TFunction::do_something()
 {
     std::cout<<"Greetings, this is "<<name<<my_number<<". I'm doing something very important."<<std::endl;
 }
-void Tfunction::increase_number()
+void TFunction::increase_number()
 {
     how_many++;
 }
-Tfunction::Tfunction()
+TFunction::TFunction()
 {
     name = "Function nr";
     increase_number();
     my_number=how_many;
 }
-std::string Tfunction::tell_me_name()
+std::string TFunction::tell_me_name()
 {
     return name;
 }
-int Tfunction::give_me_number()
+int TFunction::give_me_number()
 {
     return my_number;
 }
-int Tfunction::give_me_static()
+int TFunction::give_me_static()
 {
     return how_many;
 }
