@@ -11,6 +11,8 @@ public:
     static int how_many();
     static std::string bad_string();
     static bool checking_string(char* suspicious_string);
+    static std::string wrong_file_name();
+    static std::string wrong_data_in_the_file();
     
 };
 #endif

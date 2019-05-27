@@ -33,7 +33,7 @@ int Tmenu::choose_function()
     try{
     std::cout<<"Do you want to create new function?"<<std::endl;
     if(get_ans()){
-        return create_new_function();
+        return create_new_function()->give_me_number()-1;
     }else{
         std::cout<<"Please, choose one:"<<std::endl;
         print_array();
@@ -166,11 +166,11 @@ int Tmenu::choose_slot()
         return TExceptions::bad_int_data(Mywindows.size())-1;
     }
 }
-int Tmenu::create_new_function()
+TFunction* Tmenu::create_new_function()
 {
     TFunction *new_function=new(TFunction);
     Functions.push_back(new_function);
-    return new_function->give_me_number()-1;
+    return new_function;
 }
 std::string Tmenu::get_name()
 {
@@ -204,3 +204,25 @@ void Tmenu::give_me_my_keyboard(TKeyboard* new_keyboard)
 {
     My_keyboard=new_keyboard;
 }
+void Tmenu::create_window_with_function()
+{
+    Mywindows.push_back(TWindow(create_new_function()));
+}
+void Tmenu::create_window_with_submenu(std::string name)
+{
+    Tmenu *empty_menu=new(Tmenu);
+    empty_menu->name=name;
+    empty_menu->My_ancestor= this;
+    empty_menu->give_me_my_keyboard(My_keyboard);
+    Mywindows.push_back(empty_menu);
+}
+Tmenu* Tmenu::search_for_window(std::string title)
+{
+    for(std::vector<TWindow>::iterator i=Mywindows.begin(); i!=Mywindows.end();i++){
+        if(i->tell_me_name()==title){
+         return i->give_me_submenu_pointer();
+        }
+    }
+    return nullptr;
+}
+

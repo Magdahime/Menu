@@ -8,16 +8,19 @@ class Tmenu;
 class TWindow : public Basic_window{
 private:
     Tmenu* submenu;
-    Tfunction* function;
+    TFunction* function;
 public:
     TWindow():submenu(nullptr),function(nullptr){}
     TWindow(Tmenu* menu_pointer):submenu(menu_pointer),function(nullptr){}
-    TWindow(Tfunction * func_pointer):submenu(nullptr),function(func_pointer){}
+    TWindow(TFunction * func_pointer):submenu(nullptr),function(func_pointer){}
+    Tmenu* give_me_submenu_pointer();
+    void remove_data();
     void draw_yourself();
     void do_something();
-    void operator=(Tfunction** function1);
+    void operator=(TFunction** function1);
     void operator=(Tmenu** submenu1);
     bool is_empty();
+    bool is_submenu();
 };
 
 #endif

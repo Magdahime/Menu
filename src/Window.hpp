@@ -14,6 +14,7 @@ public:
     TWindow(Tmenu* menu_pointer):submenu(menu_pointer),function(nullptr){}
     TWindow(TFunction * func_pointer):submenu(nullptr),function(func_pointer){}
     Tmenu* give_me_submenu_pointer();
+    std::string tell_me_name();
     void remove_data();
     void draw_yourself();
     void do_something();

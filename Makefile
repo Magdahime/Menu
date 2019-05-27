@@ -6,8 +6,8 @@ SRC = src
 BUILD = build
 BIN = bin
 
-$(BIN)/TEST: $(BUILD)/Tests.o $(BUILD)/Keyboard.o $(BUILD)/Window.o $(BUILD)/Functions.o $(BUILD)/Exceptions.o $(BUILD)/Menu.o $(BUILD)/Screen.o
-	$(CC) $(CFLAGS)  $(BUILD)/Tests.o $(BUILD)/Keyboard.o $(BUILD)/Window.o $(BUILD)/Functions.o $(BUILD)/Exceptions.o $(BUILD)/Menu.o $(BUILD)/Screen.o -o $(BIN)/TEST
+$(BIN)/TEST: $(BUILD)/Tests.o $(BUILD)/Keyboard.o $(BUILD)/Window.o $(BUILD)/Functions.o $(BUILD)/Exceptions.o $(BUILD)/Menu.o $(BUILD)/Screen.o $(BUILD)/File_handler.o
+	$(CC) $(CFLAGS)  $(BUILD)/Tests.o $(BUILD)/Keyboard.o $(BUILD)/Window.o $(BUILD)/Functions.o $(BUILD)/Exceptions.o $(BUILD)/Menu.o $(BUILD)/Screen.o $(BUILD)/File_handler.o -o $(BIN)/TEST
 
 $(BUILD)/Tests.o: $(SRC)/Tests.cpp $(INCLUDE)/Main.hpp $(INCLUDE)/Keyboard.hpp $(INCLUDE)/Window.hpp $(INCLUDE)/Functions.hpp
 	$(CC) $(CFLAGS)  -c $(SRC)/Tests.cpp -o $(BUILD)/Tests.o
@@ -29,6 +29,9 @@ $(BUILD)/Menu.o: $(SRC)/Menu.cpp $(INCLUDE)/Main.hpp $(INCLUDE)/Menu.hpp $(INCLU
 
 $(BUILD)/Screen.o: $(SRC)/Screen.cpp $(INCLUDE)/Main.hpp $(INCLUDE)/Menu.hpp $(INCLUDE)/Keyboard.hpp
 	$(CC) $(CFLAGS) -c $(SRC)/Screen.cpp -o $(BUILD)/Screen.o
+
+$(BUILD)/File_handler.o: $(SRC)/File_handler.cpp $(INCLUDE)/Main.hpp $(INCLUDE)/Exceptions.hpp  $(INCLUDE)/File_handler.hpp
+	$(CC) $(CFLAGS) -c $(SRC)/File_handler.cpp -o $(BUILD)/File_handler.o
 
 clean:
 	rm -f $(BUILD)/*.o

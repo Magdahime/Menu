@@ -4,6 +4,7 @@
 #include "Functions.hpp"
 #include "Exceptions.hpp"
 #include "Screen.hpp"
+#include "File_handler.hpp"
 int TFunction::how_many=0;
 int TExceptions::how_many_times=0;
 void pause();
@@ -17,6 +18,7 @@ void test7();
 void test8();
 void test9();
 void test10();
+void test11();
 int main(void){
     //test1();
     //test2();
@@ -27,7 +29,8 @@ int main(void){
     //test7();
     //test8();
     //test9();
-    test10();
+    //test10();
+    test11();
     return 0;
 }
 void pause()
@@ -220,6 +223,15 @@ void test10()
     std::cout<<"Start test10: Folding and expanding submenu."<<std::endl; 
     TScreen screen;
     std::cout<<"End of the test10."<<std::endl;
+    pause();
+}
+void test11()
+{
+    std::cout<<"Start test11: Testing out new class TFile_handler."<<std::endl; 
+    TFile_handler handler;
+    handler.change_handle();
+    handler.get_data_from_file();
+    std::cout<<"End of the test11."<<std::endl;
     pause();
 }
 

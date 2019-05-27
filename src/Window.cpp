@@ -99,3 +99,10 @@ Tmenu* TWindow::give_me_submenu_pointer()
 {
     return submenu;
 }
+std::string TWindow::tell_me_name()
+{
+    if(!is_submenu()){
+        return function->tell_me_name();
+    }
+    return submenu->tell_me_name();
+}
