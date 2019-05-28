@@ -18,18 +18,23 @@ const std::string exit_key={"EXIT"};
 class TFile_handler{
 private:
     std::ifstream handle;
+    std::ofstream handle1;
    Tmenu * first_menu;
     
 public:
     TFile_handler();
     void change_handle();
+    void change_handle1();
     void create_submenu(Tmenu* pointer_to_working_menu);
+    void expand_submenu(Tmenu** pointer_to_working_menu,std::string key);
     void create_function(Tmenu* pointer_to_working_menu);
-    void get_name_of_the_file();
-    void save_data_to_file();
-    void get_data_from_file();
+    std::string get_name_of_the_file();
+    void save_data_to_file(std::vector<TWindow> windows_to_save);
+    Tmenu** get_data_from_file();
     std::string check_first_letter();
     void get_letter();
+    void search_for_submenu(std::vector<TWindow> windows_to_save);
+    void save_submenu(std::vector<TWindow> windows_to_save);
     
 };
 #endif

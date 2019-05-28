@@ -63,10 +63,10 @@ void TWindow::operator=(Tmenu** submenu1)
     }else 
         std::cout<<"Impossible to assign a submenu! This slot is already taken."<<std::endl;
 }
-void TWindow::operator=(TFunction** function1)
+void TWindow::operator=(TFunction* function1)
 {
     if(is_empty()){
-    function=*function1;
+    function=function1;
     }else{
         std::cout<<"Impossible to assign a function! This slot is already taken."<<std::endl;
     }

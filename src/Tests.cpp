@@ -19,6 +19,8 @@ void test8();
 void test9();
 void test10();
 void test11();
+void test12();
+void test13();
 int main(void){
     //test1();
     //test2();
@@ -30,7 +32,9 @@ int main(void){
     //test8();
     //test9();
     //test10();
-    test11();
+    //test11();
+    //test12();
+    test13();
     return 0;
 }
 void pause()
@@ -232,6 +236,12 @@ void test11()
     handler.change_handle();
     handler.get_data_from_file();
     std::cout<<"End of the test11."<<std::endl;
+    pause();
+}
+void test13()
+{
+    std::cout<<"Start test13: Getting and saving data to file."<<std::endl; 
+    TScreen screen;
     pause();
 }
 

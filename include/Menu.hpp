@@ -22,10 +22,11 @@ private:
      int get_int(unsigned int limit);
 public:
     std::string tell_me_name();
+    std::vector<TWindow>* send_data();
     void make_choice();
     void remove_data();
     void print_array();
-    int create_new_function();
+    TFunction* create_new_function();
     void draw_yourself();
     void add_empty_slot();
     void remove_slot();
@@ -35,6 +36,10 @@ public:
     void assign_menu_to_empty_slot();
     bool get_ans();
     void give_me_my_keyboard(TKeyboard* new_keyboard);
+    void create_window_with_function();
+    void create_window_with_submenu(std::string name);
+    void create_window_with_submenu(Tmenu* pointer_to_submenu);
+    Tmenu* search_for_window(std::string title);
 };
 
 #endif

@@ -2,19 +2,20 @@
 #define KEYBOARD
 #include "Main.hpp"
 #include "Menu.hpp"
+#include "File_handler.hpp"
 class TKeyboard{
 private:
     Tmenu * My_menu;
+    TFile_handler File_handler;
+    
     std::array<std::string,COMMANDS> commands_list= {
       "help",
       "add choice", "remove choice",
-      "add menu", "remove menu",
       "add submenu", "remove submenu",
-      "assign function",
-      "expand submenu", "fold submenu",
-      "choose",
-      "add file", "open file","save to file",
-      "exit", "back",
+      "function",
+      "go", "back",
+      "choose","open file","save to file",
+      "exit",
     };
 public:
     int check(std::string command);
@@ -23,6 +24,8 @@ public:
     void choose(int choice);
     void get_command();
     void change_keyboard(Tmenu* new_menu);
+    void extract_data();
+    void save_data();
     void clrscrs();
 };
 #endif

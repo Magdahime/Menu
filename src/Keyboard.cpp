@@ -53,65 +53,50 @@ void TKeyboard::choose(int choice)
         break;
     }
         case(3):{
-            std::cout<<commands_list[choice]<<std::endl;
-        break;
-    }
-        case(4):{
-           std::cout<<commands_list[choice]<<std::endl;
-        break;
-    }
-        case(5):{
             My_menu->assign_menu_to_empty_slot();
                     clrscrs();
         break;
     }
-        case(6):{
+        case(4):{
             My_menu->remove_slot();
                     clrscrs();
         break;
     }
-        case(7):{
+        case(5):{
             My_menu->assign_function_to_empty_slot();
                     clrscrs();
         break;
     }
-        case(8):{
+        case(6):{
             My_menu->expand_submenu();
                     clrscrs();
         break;
     }
-        case(9):{
+        case(7):{
            My_menu->fold_submenu();
                    clrscrs();
         break;
     }
-        case(10):{
+        case(8):{
             My_menu->make_choice();
         break;
     }
+        case(9):{
+            extract_data();
+        break;
+    }
+        case(10):{
+            save_data();
+        break;
+    }
         case(11):{
-           std::cout<<commands_list[choice]<<std::endl;
-        break;
-    }
-        case(12):{
-            std::cout<<commands_list[choice]<<std::endl;
-        break;
-    }
-        case(13):{
-            std::cout<<commands_list[choice]<<std::endl;
-        break;
-    }
-           
-        case(14):{
         exit(0);
         break;
     }
-        case(15):{
-            std::cout<<commands_list[choice]<<std::endl;
-        break;
-    }
+        default:{
+            std::cout<<"Incorrect command."<<std::endl;
+        }
 }
-    
 }
 int TKeyboard::get_int()
 {
@@ -128,11 +113,21 @@ return liczba1;
 }
 void TKeyboard::change_keyboard(Tmenu* new_menu)
 {
-    std::cout<<this<<std::endl;
     My_menu=new_menu;
 }
 
 void TKeyboard::clrscrs()
 {
             system("@cls||clear");
+}
+void TKeyboard::save_data()
+{
+    std::vector<TWindow>* pointer_vector=My_menu->send_data();
+    std::cout<<"You are currently saving your data to file."<<std::endl;
+    File_handler.save_data_to_file(*pointer_vector);
+}
+void TKeyboard::extract_data()
+{
+    std::cout<<"You are currently extracting your data drom file."<<std::endl;
+    My_menu->create_window_with_submenu(*File_handler.get_data_from_file()); 
 }

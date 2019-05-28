@@ -18,7 +18,7 @@ public:
     void remove_data();
     void draw_yourself();
     void do_something();
-    void operator=(TFunction** function1);
+    void operator=(TFunction* function1);
     void operator=(Tmenu** submenu1);
     bool is_empty();
     bool is_submenu();

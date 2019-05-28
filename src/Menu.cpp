@@ -4,6 +4,7 @@
 #include "Functions.hpp"
 #include "Exceptions.hpp"
 #include "Screen.hpp"
+#include <memory>
 TKeyboard* Tmenu::My_keyboard=nullptr;
 
 void Tmenu::add_empty_slot()
@@ -23,7 +24,7 @@ void Tmenu::print_array()
     }else
     {
     for(long unsigned int i=0;i<Functions.size();i++){
-                std::cout<<i+1<<"."<<Functions[i]->tell_me_name()<<Functions[i]->give_me_number()<<std::endl;
+                std::cout<<i+1<<"."<<Functions[i].tell_me_name()<<Functions[i].give_me_number()<<std::endl;
     }
 }
 }
@@ -33,7 +34,10 @@ int Tmenu::choose_function()
     try{
     std::cout<<"Do you want to create new function?"<<std::endl;
     if(get_ans()){
-        return create_new_function()->give_me_number()-1;
+         create_new_function();
+         std::cout<<"Please, choose one:"<<std::endl;
+        print_array();
+        number = get_int(Functions.size());
     }else{
         std::cout<<"Please, choose one:"<<std::endl;
         print_array();
@@ -115,7 +119,7 @@ void Tmenu::remove_slot()
 void Tmenu::remove_data()
 {
     for(unsigned int i=0; i<Functions.size();i++){
-        delete (Functions[i]);
+        delete (&Functions[i]);
     }
     for(unsigned int i=0;i<Mywindows.size();i++){
         Mywindows[i].remove_data();
@@ -129,7 +133,7 @@ std::string Tmenu::tell_me_name()
 bool Tmenu::get_ans()
 {
 char c;
-(std::cin>>c).get();
+std::cin>>c;
 if(c=='Y'|| c=='y'){
     return true;
 }else if(c=='N' || c=='n')
@@ -166,11 +170,11 @@ int Tmenu::choose_slot()
         return TExceptions::bad_int_data(Mywindows.size())-1;
     }
 }
-TFunction* Tmenu::create_new_function()
+int Tmenu::create_new_function()
 {
-    TFunction *new_function=new(TFunction);
-    Functions.push_back(new_function);
-    return new_function;
+   TFunction* new_function= new TFunction;
+    Functions.push_back(*new_function);
+    return new_function->give_me_number()-1;
 }
 std::string Tmenu::get_name()
 {
@@ -206,7 +210,7 @@ void Tmenu::give_me_my_keyboard(TKeyboard* new_keyboard)
 }
 void Tmenu::create_window_with_function()
 {
-    Mywindows.push_back(TWindow(create_new_function()));
+    Mywindows.emplace_back(TWindow(new TFunction));
 }
 void Tmenu::create_window_with_submenu(std::string name)
 {
@@ -224,5 +228,17 @@ Tmenu* Tmenu::search_for_window(std::string title)
         }
     }
     return nullptr;
+}
+void Tmenu::create_window_with_submenu(Tmenu* pointer_to_submenu)
+{
+    pointer_to_submenu->name="Extracted data";
+    pointer_to_submenu->My_ancestor= this;
+    pointer_to_submenu->give_me_my_keyboard(My_keyboard);
+    Mywindows.push_back(pointer_to_submenu);
+}
+
+std::vector<TWindow>* Tmenu::send_data()
+{
+    return &Mywindows;
 }
 
