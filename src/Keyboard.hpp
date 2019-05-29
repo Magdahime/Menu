@@ -6,7 +6,7 @@
 class TKeyboard{
 private:
     Tmenu * My_menu;
-    TFile_handler File_handler;
+    TFile_handler* File_handler;
     
     std::array<std::string,COMMANDS> commands_list= {
       "help",

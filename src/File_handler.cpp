@@ -94,10 +94,11 @@ std::string TFile_handler::check_first_letter()
     }
     return "ERROR";
 }
-void TFile_handler::get_letter()
+char TFile_handler::get_letter()
 {
     char c= handle.get();
-    std::cout<<c<<std::endl;
+    handle.unget();
+    return c;
 }
 void TFile_handler::create_function(Tmenu * pointer_to_working_menu)
 {
@@ -131,18 +132,44 @@ void TFile_handler::expand_submenu(Tmenu** pointer_to_working_menu,std::string k
                 if(buff == title_window_key){
                 std::string title;
                 getline(handle,title,'\n');
-                *pointer_to_working_menu=(*pointer_to_working_menu)->search_for_window(title);
+                search_further(pointer_to_working_menu,title);
         }
+        }else{
+            if(get_letter()!='X')
+            (*pointer_to_working_menu)->add_empty_slot();
         }
     } 
 }
+void TFile_handler::search_further(Tmenu** pointer_to_working_menu,std::string title)
+{
+    try{
+    if(!(*pointer_to_working_menu)->search_for_window(title)){
+        if((*pointer_to_working_menu)->back()==nullptr){
+            std::cout<<"This file is corrupted.\n";
+            (*pointer_to_working_menu)->remove_data();
+            pointer_to_working_menu=&first_menu;
+            throw ERROR;
+        }
+        *pointer_to_working_menu=(*pointer_to_working_menu)->back();
+      search_further(pointer_to_working_menu,title);
+    }else
+        *pointer_to_working_menu=(*pointer_to_working_menu)->search_for_window(title);
+    }catch(int){
+        get_data_from_file();
+    }
+}
+
 void TFile_handler::save_submenu(std::vector<TWindow> windows_to_save)
 {
     for(std::vector<TWindow>::iterator i=windows_to_save.begin(); i!=windows_to_save.end(); i++){
         if(i->is_submenu()){
             handle1<<menu_key<<" "<<i->tell_me_name()<<std::endl;
-        }else{
+        }else {
+            if( !i->is_empty()){
            handle1<<function_key<<std::endl; 
+        }else{
+            handle1<<new_window_key<<std::endl;
+        }
         }
     }
     handle1<<new_window_key<<std::endl;
@@ -165,8 +192,12 @@ void TFile_handler::save_data_to_file(std::vector<TWindow> windows_to_save)
     for(std::vector<TWindow>::iterator i=windows_to_save.begin(); i!=windows_to_save.end(); i++){
         if(i->is_submenu()){
             handle1<<menu_key<<" "<<i->tell_me_name()<<std::endl;
-        }else{
+        }else {
+            if( !i->is_empty()){
            handle1<<function_key<<std::endl; 
+        }else{
+            handle1<<new_window_key<<std::endl;
+        }
         }
     }
     handle1<<new_window_key<<std::endl;
@@ -178,4 +209,3 @@ void TFile_handler::save_data_to_file(std::vector<TWindow> windows_to_save)
         std::cout<<"HINT:Try adding something to this menu."<<std::endl;
     }
 }
-

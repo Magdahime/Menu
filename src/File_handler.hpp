@@ -28,11 +28,12 @@ public:
     void create_submenu(Tmenu* pointer_to_working_menu);
     void expand_submenu(Tmenu** pointer_to_working_menu,std::string key);
     void create_function(Tmenu* pointer_to_working_menu);
+    void search_further(Tmenu** pointer_to_working_menu,std::string title);
     std::string get_name_of_the_file();
     void save_data_to_file(std::vector<TWindow> windows_to_save);
     Tmenu** get_data_from_file();
     std::string check_first_letter();
-    void get_letter();
+    char get_letter();
     void search_for_submenu(std::vector<TWindow> windows_to_save);
     void save_submenu(std::vector<TWindow> windows_to_save);
     

@@ -32,7 +32,7 @@ void TWindow::draw_yourself()
         std::cout.fill('*');
         std::cout<<""<<std::endl;
     }else if (function!= nullptr){
-        int size=function->tell_me_name().size();
+        int size=function->tell_me_name().size()+2;
         std::string free_space1((MAXLINE-2-size)/2,' ');
         //tworzymy okienko
         std::cout.width(MAXLINE);

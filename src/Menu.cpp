@@ -14,7 +14,12 @@ void Tmenu::add_empty_slot()
 }
 void Tmenu::assign_function_to_empty_slot()
 {
+    if(Mywindows.size()>0){
  Mywindows[choose_slot()]=&Functions[choose_function()];   
+    }else{
+        std::cout<<"There is no windows"<<std::endl;
+        std::cout<<"HINT:Add a window."<<std::endl;
+    }
 }
 void Tmenu::print_array()
 {
@@ -52,11 +57,17 @@ int Tmenu::choose_function()
 
 void Tmenu::assign_menu_to_empty_slot()
 {
+    if(Mywindows.size()>0){
     Tmenu *empty_menu=new(Tmenu);
     empty_menu->name=get_name();
     empty_menu->My_ancestor= this;
     empty_menu->give_me_my_keyboard(My_keyboard);
     Mywindows[choose_slot()]=&empty_menu;
+    }else{
+        std::cout<<"There is no windows"<<std::endl;
+        std::cout<<"HINT:Add a window."<<std::endl;
+    }
+        
 }
 void Tmenu::draw_yourself()
 {
@@ -96,6 +107,11 @@ void Tmenu::fold_submenu()
         std::cout<<"Cannot fold a submenu! This is your first menu."<<std::endl;
     }
 }
+Tmenu * Tmenu::back()
+{
+    return My_ancestor;
+}
+
 void Tmenu::remove_slot()
 {
     long unsigned int which_one;
@@ -231,10 +247,10 @@ Tmenu* Tmenu::search_for_window(std::string title)
 }
 void Tmenu::create_window_with_submenu(Tmenu* pointer_to_submenu)
 {
-    pointer_to_submenu->name="Extracted data";
+    pointer_to_submenu->name=("Extracted data");
     pointer_to_submenu->My_ancestor= this;
     pointer_to_submenu->give_me_my_keyboard(My_keyboard);
-    Mywindows.push_back(pointer_to_submenu);
+    Mywindows.emplace_back(pointer_to_submenu);
 }
 
 std::vector<TWindow>* Tmenu::send_data()

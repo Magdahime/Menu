@@ -7,7 +7,7 @@
 #include <deque>
 class TWindow;
 class TKeyboard;
-class Tmenu : public Basic_window{
+class Tmenu : virtual public Basic_window{
 private:
      std::string name;
      std::string get_name();
@@ -21,6 +21,7 @@ private:
      int choose_slot();
      int get_int(unsigned int limit);
 public:
+    Tmenu * back();
     std::string tell_me_name();
     std::vector<TWindow>* send_data();
     void make_choice();

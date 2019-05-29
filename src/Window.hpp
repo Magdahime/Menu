@@ -5,7 +5,7 @@ class Tmenu;
 #include "Main.hpp"
 #include "Functions.hpp"
 #include "Basic_window.hpp"
-class TWindow : public Basic_window{
+class TWindow : virtual public Basic_window{
 private:
     Tmenu* submenu;
     TFunction* function;

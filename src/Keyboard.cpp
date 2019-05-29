@@ -90,6 +90,9 @@ void TKeyboard::choose(int choice)
         break;
     }
         case(11):{
+            while(My_menu->back()!=nullptr)
+                My_menu->fold_submenu();
+            My_menu->remove_data();
         exit(0);
         break;
     }
@@ -122,12 +125,16 @@ void TKeyboard::clrscrs()
 }
 void TKeyboard::save_data()
 {
+    File_handler = new TFile_handler;
     std::vector<TWindow>* pointer_vector=My_menu->send_data();
     std::cout<<"You are currently saving your data to file."<<std::endl;
-    File_handler.save_data_to_file(*pointer_vector);
+    File_handler->save_data_to_file(*pointer_vector);
+    delete File_handler;
 }
 void TKeyboard::extract_data()
 {
+    File_handler = new TFile_handler;
     std::cout<<"You are currently extracting your data drom file."<<std::endl;
-    My_menu->create_window_with_submenu(*File_handler.get_data_from_file()); 
+    My_menu->create_window_with_submenu(*File_handler->get_data_from_file()); 
+    delete File_handler;
 }
